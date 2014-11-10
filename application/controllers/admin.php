@@ -126,9 +126,19 @@ class AdminController extends Controller
                 && ($_POST['password'] == $_POST['confpassword'])
                 && !empty($_POST['permissions'])
             ) {
-                // If everything checks out, get form data and update database
+                // If updating both password and permissions, get form data and update database
                 $pw = sha1($_POST['password']);
                 $perm = $_POST['permissions'];
+                $this->model->updateUser($pw, $perm, $id);
+                $_POST['warning'] = 'User account successfully updated.';
+            } elseif (isset($_POST['submitted'])
+                && !empty($_POST['permissions'])
+                && empty($_POST['password'])
+                && empty($_POST['confpassword'])
+            ) {
+                // If just updating permissions
+                $perm = $_POST['permissions'];
+                $pw = '';
                 $this->model->updateUser($pw, $perm, $id);
                 $_POST['warning'] = 'User account successfully updated.';
             } elseif (isset($_POST['submitted']) && (($_POST['password']) != $_POST['confpassword'])) {

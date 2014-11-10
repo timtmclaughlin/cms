@@ -58,7 +58,11 @@ class Admin extends Model
         $pw = $this->db->real_escape_string($pw);
         $perm = $this->db->real_escape_string($perm);
         $id = $this->db->real_escape_string($id);
-        $query = "UPDATE users SET pswd = '" . $pw . "', permission = '" . $perm . "' WHERE id = " . $id;
+        if (empty($pw)) {
+            $query = "UPDATE users SET permission = '" . $perm . "' WHERE id = " . $id;
+        } else {
+            $query = "UPDATE users SET pswd = '" . $pw . "', permission = '" . $perm . "' WHERE id = " . $id;
+        }
         $this->updateQuery($query);
     }
 

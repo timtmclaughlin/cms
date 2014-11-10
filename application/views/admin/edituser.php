@@ -28,12 +28,12 @@
 
             <p>
                 <label for="password">New Password</label>
-                <input type="password" name="password" required="required" value="">
+                <input type="password" name="password" value="">
             </p>
 
             <p>
                 <label for="confpassword">Confirm New Password</label>
-                <input type="password" name="confpassword" required="required" value="">
+                <input type="password" name="confpassword" value="">
             </p>
 
             <input type="submit" name="submit" value="Update">
