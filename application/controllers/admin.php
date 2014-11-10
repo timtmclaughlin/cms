@@ -12,7 +12,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
             $this->view->render('admin/index');
         } elseif (isset($_POST['submitted'])) {
             $un = isset($_POST['username']) ? $_POST['username'] : null;
@@ -31,6 +31,7 @@ class AdminController extends Controller
         if (isset($this->model->user)) {
             $_SESSION['username'] = $this->model->user['username'];
             $_SESSION['nickname'] = $this->model->user['nickname'];
+            $_SESSION['permission'] = $this->model->user['permission'];
             ob_start();
             header('Location: /admin');
             ob_end_flush();
@@ -59,7 +60,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (!isset($_SESSION['username'])) {
+        if (!$this->isLoggedIn()) {
 
             if (!isset($_POST['submitted'])) {
                 $this->view->render('admin/registration');
@@ -98,7 +99,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION)) {
+        if ($this->isLoggedIn()) {
 
             $users = $this->model->getUsers();
             foreach ($users as $key => $value) {
@@ -116,7 +117,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
             // Get User ID
             $id = isset($url[2]) && is_numeric($url[2]) ? $url[2] : null;
 
@@ -164,7 +165,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
             // Get User ID
             $id = isset($url[2]) && is_numeric($url[2]) ? $url[2] : null;
             $this->model->deleteUser($id);
@@ -181,7 +182,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
             $posts = $this->model->getAllPosts();
             foreach ($posts as $key => $value) {
                 $this->view->set($key, $value);
@@ -197,7 +198,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
             // Get Post ID
             $id = isset($url[2]) && is_numeric($url[2]) ? $url[2] : null;
 
@@ -225,7 +226,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
 
             if (isset($_POST['submitted'])) {
                 // If content submitted, get form data and insert into database
@@ -248,7 +249,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
             // Get Post ID
             $id = isset($url[2]) && is_numeric($url[2]) ? $url[2] : null;
             $this->model->deletePost($id);
@@ -265,7 +266,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
             $blocks = $this->model->getAllBlocks();
             foreach ($blocks as $key => $value) {
                 $this->view->set($key, $value);
@@ -281,7 +282,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
             // Get Block ID
             $id = isset($url[2]) && is_numeric($url[2]) ? $url[2] : null;
 
@@ -309,7 +310,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
 
             if (isset($_POST['submitted'])) {
                 // If content submitted, get form data and insert into database
@@ -332,7 +333,7 @@ class AdminController extends Controller
     {
         $this->sessionInit();
 
-        if (isset($_SESSION['username'])) {
+        if ($this->isLoggedIn()) {
             // Get Post ID
             $id = isset($url[2]) && is_numeric($url[2]) ? $url[2] : null;
             $this->model->deleteBlock($id);

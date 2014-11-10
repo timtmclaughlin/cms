@@ -4,6 +4,7 @@
 <head>
     <title>MVC</title>
     <link href="/css/style.css" rel="stylesheet">
+    <meta charset="UTF-8">
 </head>
 
 <body>

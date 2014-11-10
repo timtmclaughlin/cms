@@ -18,4 +18,23 @@ class Controller
             session_start();
         }
     }
+
+    public function isLoggedIn()
+    {
+        if (!empty($_SESSION['username'])) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function isAdmin()
+    {
+        if ($_SESSION['permission'] == 'admin') {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
 }
